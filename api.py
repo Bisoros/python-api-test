@@ -9,20 +9,34 @@ class Api():
     def hello_world():
         return 'Hello world!'
 
-    @app.route('/predict', methods=['POST'])
-    def predict():
-        content = request.json
-        X = content['input']
-        return jsonify (
-            results=ml.predict(X)
-        )
+    @app.route('/test/<var>')
+    def test(var):
+        return var
+        
+    @app.route('/<type>/<task>/<process>', methods=['POST'])
+    def compute(type, task, process):
+        if type == 'numbers':
+            if task == 'regression':
+                if process == 'predict':
+                    content = request.json
+                    X = content['input']
+                    return jsonify (
+                        results=ml.predict(X)
+                    )
+                elif process == 'train':
+                    content = request.json
+                    X = content['input']
+                    Y = content['output']
+                    return ml.train(X, Y)
 
-    @app.route('/train', methods=['POST'])
-    def train():
-        content = request.json
-        X = content['input']
-        Y = content['output']
-        return ml.train(X, Y)
+        elif type == 'vision':
+            return 'vision'
+
+        elif type == 'sound':
+            return 'sound'
+
+        elif type == 'text':
+            return 'text'
 
     def run(self):
         self.app.run (
