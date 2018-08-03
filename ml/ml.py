@@ -27,7 +27,7 @@ def predict(X):
     # Model inference
     Y = model.predict(X)
 
-    return Y
+    return list(Y)
 
 def test():
     # Test function to generate pickle file with dummy regression model
