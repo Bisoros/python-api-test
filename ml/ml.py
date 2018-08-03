@@ -14,7 +14,7 @@ def train(X, Y):
     model.fit(X, Y)
 
     #  Model persistence
-    pickle.dump(model, open( 'model.pk', 'wb' ))
+    pickle.dump(model, open( 'ml/model.pk', 'wb' ))
 
 def predict(X):
     # Input preprocessing
@@ -22,7 +22,7 @@ def predict(X):
     X = np.reshape(X, (-1, 1))
 
     # Load trained model from file
-    model = pickle.load(open( 'model.pk', 'rb' ))
+    model = pickle.load(open( 'ml/model.pk', 'rb' ))
 
     # Model inference
     Y = model.predict(X)
