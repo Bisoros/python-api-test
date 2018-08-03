@@ -1,3 +1,7 @@
+from sklearn import linear_model
+import pickle
+
 def predict(X):
-    Y = X * 2
-    return Y
+    clf = pickle.loads(s)
+    prediction = clf.predict(X)
+    return prediction
