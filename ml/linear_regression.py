@@ -7,8 +7,8 @@ def init():
     return ml_object
 
 '''
-import linear_regression as lg
-object = lg.init()
+import linear_regression
+object = linear_regression.init()
 object.train(X, Y)
 object.predict(X)
 '''
