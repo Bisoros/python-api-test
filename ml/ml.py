@@ -3,7 +3,6 @@ import pickle
 import numpy as np
 
 class Ml(algo):
-    algo = None
 
     def train(self, X, Y):
         # Input preprocessing
