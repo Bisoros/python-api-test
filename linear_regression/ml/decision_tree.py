@@ -1,4 +1,4 @@
-import ml
+import ml.ml as ml
 from sklearn.tree import DecisionTreeClassifier
 
 def init():

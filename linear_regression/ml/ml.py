@@ -12,9 +12,10 @@ class Ml():
         self.algo = algo
         self.name = self.algo.__class__.__name__
         if self.name in self.supervised_algos:
-            type = 'supervised'
+            self.type = 'supervised'
         elif self.name in self.unsupervised_algos:
-            type = 'unsupervised'
+            self.type = 'unsupervised'
+        print(type)
 
     def train(self, X, Y = None):
         # Input preprocessing
@@ -33,7 +34,7 @@ class Ml():
     def predict(self, X):
         # Input preprocessing
         X = np.asarray(X)
-        Y = np.reshape(X, (-1, 1))
+        X = np.reshape(X, (-1, 1))
 
         # Load trained model from file
         self.algo = pickle.load(open('ml/model.pk', 'rb'))
