@@ -2,25 +2,30 @@ import pickle
 import numpy as np
 
 class Ml():
-    algo = []
+    algo = None
+    type = None
+    name = None
     supervised_algos = ['LinearRegression', 'DecisionTreeClassifier']
     unsupervised_algos = ['PCA']
-    name = ''
 
     def __init__(self, algo):
         self.algo = algo
         self.name = self.algo.__class__.__name__
-        #if self.name
+        if self.name in supervised_algos:
+            type = 'supervised'
+        elif self.name in unsupervised_algos:
+            type = 'unsupervised'
 
-    def train(self, X, Y):
+    def train(self, X, Y = None):
         # Input preprocessing
         X = np.asarray(X)
         X = np.reshape(X, (-1, 1))
 
         # Train the model using the training sets
-        if :
+        if self.type == 'supervised':
             self.algo.fit(X, Y)
-
+        elif self.type == 'unsupervised':
+            self.algo.fit(X)
 
         #  Model persistence
         pickle.dump(self.algo, open('ml/model.pk', 'wb'))
@@ -34,7 +39,10 @@ class Ml():
         self.algo = pickle.load(open('ml/model.pk', 'rb'))
 
         # Model inference
-        Y = self.algo.predict(X)
+        if self.type == 'supervised':
+            Y = self.algo.predict(X)
+        elif self.type == 'unsupervised':
+            Y = self.algo.transform(X)
 
         return list(Y)
 
