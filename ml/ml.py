@@ -1,9 +1,7 @@
-from sklearn import linear_model
 import pickle
 import numpy as np
 
 class Ml(algo):
-
     def train(self, X, Y):
         # Input preprocessing
         X = np.asarray(X)
