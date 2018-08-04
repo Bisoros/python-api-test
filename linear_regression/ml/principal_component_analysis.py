@@ -1,8 +1,8 @@
 import ml
-from sklearn import linear_model
+from sklearn import decomposition
 
 def init():
-    algo = linear_model.LinearRegression()
+    algo = decomposition.PCA()
     ml_object = ml.Ml(algo)
     return ml_object
 

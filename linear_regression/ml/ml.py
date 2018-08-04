@@ -3,9 +3,14 @@ import numpy as np
 
 class Ml():
     algo = []
+    supervised_algos = ['LinearRegression', 'DecisionTreeClassifier']
+    unsupervised_algos = ['PCA']
+    name = ''
 
     def __init__(self, algo):
         self.algo = algo
+        self.name = self.algo.__class__.__name__
+        #if self.name
 
     def train(self, X, Y):
         # Input preprocessing
@@ -13,10 +18,12 @@ class Ml():
         X = np.reshape(X, (-1, 1))
 
         # Train the model using the training sets
-        self.algo.fit(X, Y)
+        if :
+            self.algo.fit(X, Y)
+
 
         #  Model persistence
-        pickle.dump(self.algo, open( 'model.pk', 'wb' ))
+        pickle.dump(self.algo, open('ml/model.pk', 'wb'))
 
     def predict(self, X):
         # Input preprocessing
@@ -24,12 +31,12 @@ class Ml():
         X = np.reshape(X, (-1, 1))
 
         # Load trained model from file
-        self.algo = pickle.load(open('model.pk', 'rb'))
+        self.algo = pickle.load(open('ml/model.pk', 'rb'))
 
         # Model inference
         Y = self.algo.predict(X)
 
-        return Y
+        return list(Y)
 
     def test_linear_regression(self):
         # Test function to generate pickle file with dummy linear regression model
