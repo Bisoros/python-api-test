@@ -1,4 +1,4 @@
-import ml
+import ml.ml as ml
 from sklearn import linear_model
 
 def init():

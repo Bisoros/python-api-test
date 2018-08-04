@@ -11,6 +11,8 @@ class MLWrapperApi():
     @app.route('/', methods=['POST'])
     def compute():
         content = request.json
+        print(request.form)
+
         object = lg.init()
         if content['algo'] == 'regression':
             if content['process'] == 'predict':

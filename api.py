@@ -18,20 +18,18 @@ class Api():
     @app.route('/<type>/<task>/<process>', methods=['POST'])
     def compute(type, task, process):
         if type == 'numbers':
-            post = {
+            postdata = {
                 'algo' : task,
                 'process' : process,
                 'json' : request.json,
             }
-            post = json.dumps(post)
-            print (post)
 
-            r = requests.post(
-                "http://0.0.0.0:100/",
-                data=post,
-            )
+            url = 'http://0.0.0.0:100/'
+
+            r = requests.post(url, json=postdata)
+            print (r)
             print (r.text)
-            return "yup"
+            return r.text
 
         elif type == 'vision':
             return 'vision'
