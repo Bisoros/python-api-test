@@ -4,6 +4,9 @@ import json
 
 class Api():
     app = Flask(__name__)
+    port = 420
+    debug = False
+    host = '0.0.0.0'
 
     @app.route('/')
     def hello_world():
@@ -12,7 +15,7 @@ class Api():
     @app.route('/test/<var>')
     def test(var):
         return var
-        
+
     @app.route('/<type>/<task>/<process>', methods=['POST'])
     def compute(type, task, process):
         if type == 'numbers':
@@ -21,13 +24,15 @@ class Api():
                     content = request.json
                     X = content['input']
                     return jsonify (
-                        results=ml.predict(X)
+                        results=ml.predict(X),
                     )
                 elif process == 'train':
                     content = request.json
                     X = content['input']
                     Y = content['output']
-                    return ml.train(X, Y)
+                    return jsonify (
+                        return = ml.train(X, Y),
+                    )
 
         elif type == 'vision':
             return 'vision'
@@ -40,9 +45,9 @@ class Api():
 
     def run(self):
         self.app.run (
-            host='0.0.0.0',
-            port=420,
-            debug=False,
+            host=self.host,
+            port=self.port,
+            debug=self.debug,
         )
 
 if __name__ == '__main__':
