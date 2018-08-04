@@ -45,7 +45,7 @@ class Ml():
         elif self.type == 'unsupervised':
             Y = self.algo.transform(X)
 
-        return list(Y)
+        return Y.tolist()
 
     def test_linear_regression(self):
         # Test function to generate pickle file with dummy linear regression model
