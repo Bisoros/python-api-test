@@ -1,6 +1,5 @@
 from flask import Flask, abort, request, jsonify
-from ml import ml
-import json
+import json, requests
 
 class Api():
     app = Flask(__name__)
@@ -19,20 +18,20 @@ class Api():
     @app.route('/<type>/<task>/<process>', methods=['POST'])
     def compute(type, task, process):
         if type == 'numbers':
-            if task == 'regression':
-                if process == 'predict':
-                    content = request.json
-                    X = content['input']
-                    return jsonify (
-                        results=ml.predict(X),
-                    )
-                elif process == 'train':
-                    content = request.json
-                    X = content['input']
-                    Y = content['output']
-                    return jsonify (
-                        return = ml.train(X, Y),
-                    )
+            post = {
+                'algo' : task,
+                'process' : process,
+                'json' : request.json,
+            }
+            post = json.dumps(post)
+            print (post)
+
+            r = requests.post(
+                "http://0.0.0.0:100/",
+                data=post,
+            )
+            print (r.text)
+            return "yup"
 
         elif type == 'vision':
             return 'vision'
