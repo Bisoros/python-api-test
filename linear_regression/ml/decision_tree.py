@@ -1,4 +1,4 @@
-import ml.ml as ml
+import ml.ml as ml #ml.ml as ml ml
 from sklearn.tree import DecisionTreeClassifier
 
 def init():
@@ -9,7 +9,7 @@ def init():
 '''
 import decision_tree
 object = decision_tree.init()
-# object.test_decision_tree()
-object.train(X, Y)
+object.test_decision_tree()
+# object.train(X, Y)
 object.predict(X)
 '''

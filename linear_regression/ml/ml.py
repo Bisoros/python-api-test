@@ -29,7 +29,7 @@ class Ml():
             self.algo.fit(X)
 
         #  Model persistence
-        pickle.dump(self.algo, open('ml/model.pk', 'wb'))
+        pickle.dump(self.algo, open('ml/model.pk', 'wb')) #ml/model.pk model.pk
 
     def predict(self, X):
         # Input preprocessing
@@ -37,7 +37,7 @@ class Ml():
         X = np.reshape(X, (-1, 1))
 
         # Load trained model from file
-        self.algo = pickle.load(open('ml/model.pk', 'rb'))
+        self.algo = pickle.load(open('ml/model.pk', 'rb')) #ml/model.pk model.pk
 
         # Model inference
         if self.type == 'supervised':
