@@ -1,4 +1,4 @@
-import ml.ml as ml
+import ml.ml as ml #ml.ml as ml ml
 from sklearn import decomposition
 
 def init():
@@ -9,5 +9,6 @@ def init():
 '''
 import principal_component_analysis
 object = principal_component_analysis.init()
-object.predict(X)
+object.train([[1, 2, 3], [2, 3, 3]])
+object.predict([[1, 2, 3]])
 '''

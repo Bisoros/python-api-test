@@ -15,12 +15,14 @@ class Ml():
             self.type = 'supervised'
         elif self.name in self.unsupervised_algos:
             self.type = 'unsupervised'
-        print(type)
+        print('Initialising', self.name, '(', self.type, ')')
 
     def train(self, X, Y = None):
         # Input preprocessing
         X = np.asarray(X)
-        X = np.reshape(X, (-1, 1))
+
+        if self.type == 'supervised':
+            X = np.reshape(X, (-1, 1))
 
         # Train the model using the training sets
         if self.type == 'supervised':
@@ -29,15 +31,17 @@ class Ml():
             self.algo.fit(X)
 
         #  Model persistence
-        pickle.dump(self.algo, open('ml/model.pk', 'wb')) #ml/model.pk model.pk
+        pickle.dump(self.algo, open('model.pk', 'wb')) #ml/model.pk model.pk
 
     def predict(self, X):
         # Input preprocessing
         X = np.asarray(X)
-        X = np.reshape(X, (-1, 1))
+
+        if self.type == 'supervised':
+            X = np.reshape(X, (-1, 1))
 
         # Load trained model from file
-        self.algo = pickle.load(open('ml/model.pk', 'rb')) #ml/model.pk model.pk
+        self.algo = pickle.load(open('model.pk', 'rb')) #ml/model.pk model.pk
 
         # Model inference
         if self.type == 'supervised':
