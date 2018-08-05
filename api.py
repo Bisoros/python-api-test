@@ -6,6 +6,18 @@ class Api():
     port = 420
     debug = False
     host = '0.0.0.0'
+    global ports, create_json
+    ports = {
+        'numbers' : '100',
+        'text' : '101',
+    }
+
+    def create_json(task, process, req_json):
+        return {
+            'algo' : task,
+            'process' : process,
+            'json' : req_json,
+        }
 
     @app.route('/')
     def hello_world():
@@ -17,28 +29,12 @@ class Api():
 
     @app.route('/<type>/<task>/<process>', methods=['POST'])
     def compute(type, task, process):
-        if type == 'numbers':
-            postdata = {
-                'algo' : task,
-                'process' : process,
-                'json' : request.json,
-            }
+        global property, create_json
 
-            url = 'http://0.0.0.0:100/'
-
-            r = requests.post(url, json=postdata)
-            print (r)
-            print (r.text)
-            return r.text
-
-        elif type == 'vision':
-            return 'vision'
-
-        elif type == 'sound':
-            return 'sound'
-
-        elif type == 'text':
-            return 'text'
+        postdata = create_json(task, process, request.json)
+        url = 'http://0.0.0.0:' + ports[type]
+        r = requests.post(url, json=postdata)
+        return r.text
 
     def run(self):
         self.app.run (
