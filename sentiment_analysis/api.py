@@ -1,5 +1,5 @@
 from flask import Flask, abort, request, jsonify
-from ml.sentiment_analysis import SentimentAnalysis as sa
+from ml.sentiment_analysis import SentimentAnalysis
 import json
 
 class Api():
@@ -15,8 +15,8 @@ class Api():
         if content['algo'] == 'sentiment':
             if content['process'] == 'predict':
                 content = content['json']
-
-                object = sa(content['text']).sentiment
+                text = content['text']
+                object = SentimentAnalysis(text).sentiment
 
                 return jsonify (
                     polarity=object.polarity,
