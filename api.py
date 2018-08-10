@@ -1,16 +1,13 @@
 from flask import Flask, abort, request, jsonify
+from rpc_client import RpcClient
 import json, requests
 
 class Api():
     app = Flask(__name__)
     port = 420
-    debug = False
+    debug = True
     host = '0.0.0.0'
     global ports, create_json
-    ports = {
-        'numbers' : '100',
-        'text' : '101',
-    }
 
     def create_json(task, process, req_json):
         return {
@@ -29,13 +26,19 @@ class Api():
 
     @app.route('/<type>/<task>/<process>', methods=['POST'])
     def compute(type, task, process):
-        global property, create_json
+        global create_json
 
-        postdata = create_json(task, process, request.json)
-        url = 'http://0.0.0.0:' + ports[type]
-        r = requests.post(url, json=postdata)
-        return r.text
+        data = create_json(task, process, request.json)
+        print (json.dumps(data))
 
+        # create queue, send and receive response
+        # TODO: validate type
+        rpc = RpcClient(type)
+        response = rpc.call(json.dumps(data))
+
+        return response
+
+    # start server
     def run(self):
         self.app.run (
             host=self.host,

@@ -4,6 +4,7 @@ import uuid
 class RpcClient(object):
     host = 'localhost'
     queue = 'rpc_queue'
+
     def __init__(self, queue):
         self.queue = queue
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=self.host))
@@ -32,18 +33,18 @@ class RpcClient(object):
                                    body=str(data))
         while self.response is None:
             self.connection.process_data_events()
-        return int(self.response)
+        return self.response
 
 if __name__ == '__main__':
     fibonacci_rpc = RpcClient('rpc_queue')
 
-    var = input("Enter an integer: ")
+    var = "30" #input("Enter an integer: ")
     print(" [x] Requesting fib(" + var +")")
     response = fibonacci_rpc.call(int(var))
     print(" [.] Got %r" % response)
 
-'''
-# how it will work:
-rpc = RpcClient('queue name')
-return rpc.call(the_json)
-'''
+    '''
+    # how it will work:
+    rpc = RpcClient('queue name')
+    return rpc.call(the_json)
+    '''
